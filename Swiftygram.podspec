@@ -29,6 +29,7 @@ TODO: Add long description of the pod here.
   s.social_media_url = 'https://twitter.com/MHN9978'
 
   s.ios.deployment_target = '15.6'
+  s.swift_version = '5'
 
   s.source_files = 'Swiftygram/Classes/**/*'
   
