@@ -1,0 +1,6 @@
+framework module Swiftygram {
+  umbrella header "Swiftygram-umbrella.h"
+
+  export *
+  module * { export * }
+}

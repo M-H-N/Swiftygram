@@ -7,18 +7,56 @@
 //
 
 import UIKit
+import Swiftygram
 
 class ViewController: UIViewController {
+    
+    // MARK: Properties
+    private let endpoint: IEndpoint = Endpoint()
 
+    
+    // MARK: IBOutlets
+    @IBOutlet weak var lblTest: UILabel!
+    
+    
+    
+    // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        self.test()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
 
+    private func test() {
+        let url = URL(string: "https://www.instagram.com/reel/CufGrJzJiDk/?igshid=Y2IzZGU1MTFhOQ==")!
+        
+        let (shortCode, type) = ShareLinkUtility.shortCode(forUrl: url)!
+        
+        
+        Task {
+            do {
+                switch type {
+                case .user:
+                    let user = try await self.endpoint.getUser(withUsername: shortCode)
+                    DispatchQueue.main.async { [weak self] in
+                        self?.lblTest.text = user?.name
+                    }
+                case .post: fallthrough
+                case .reel:
+                    let media = try await self.endpoint.getPost(withShortCode: shortCode)
+                    DispatchQueue.main.async { [weak self] in
+                        self?.lblTest.text = media?.caption?.text
+                        self?.lblTest.text?.append("\(media?.content?.images?.count)")
+                    }
+                }
+                
+            } catch {
+                print(error.localizedDescription)
+                print(String(describing: error))
+            }
+            
+        }
+    }
 }
 

@@ -1,0 +1,16 @@
+PODS:
+  - Swiftygram (0.1.0)
+
+DEPENDENCIES:
+  - Swiftygram (from `../`)
+
+EXTERNAL SOURCES:
+  Swiftygram:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  Swiftygram: 782b13b3c44beaaaa8bf9b21b92868f481dab55f
+
+PODFILE CHECKSUM: f54d29f0d5ae8feef96b70b95bb64ca1007db128
+
+COCOAPODS: 1.12.1
