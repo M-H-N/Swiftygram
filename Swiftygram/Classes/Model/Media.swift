@@ -43,6 +43,16 @@ extension Media {
         
         open lazy var isVideo: Bool? = self["is_video"].optional()?.bool()
         
+        public static func from(wrapped: Wrapper) -> Media.Content? {
+            guard let typeNameString = wrapped["__typename"].string() else { return nil }
+            guard let typeName: Media.TypeName = .init(rawValue: typeNameString) else { return nil }
+            switch typeName {
+            case .graphVideo: return Media.Content.Video(wrapper: wrapped)
+            case .graphImage: return Media.Content.Image(wrapper: wrapped)
+            case .graphSidecar: return Media.Content.Sidecar(wrapper: wrapped)
+            }
+        }
+        
         public static func parseAccordingly(media: Media) -> Media.Content? {
             guard let type = media.typeName else { return nil }
             switch type {
@@ -78,7 +88,7 @@ extension Media.Content {
         open lazy var contents: [Media.Content]? = {
             self["edge_sidecar_to_children"].optional()?["edges"].array()?.compactMap { edge in
                 guard let node = edge["node"].optional() else { return nil }
-                return .init(wrapper: node)
+                return .from(wrapped: node)
             }
         }()
     }
