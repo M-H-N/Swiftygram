@@ -44,7 +44,7 @@ open class Endpoint: IEndpoint {
                 return nil
             }
             
-            // Parse the response
+            // Parse the response if could pass the prev check :))
             return .init(wrapper: mediaWrapper)
         } catch let error {
             // Check if it's a IP-Address ban error
