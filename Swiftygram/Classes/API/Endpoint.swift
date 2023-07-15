@@ -43,6 +43,9 @@ open class Endpoint: IEndpoint {
                   let mediaWrapper = graphQlWrapper["shortcode_media"].optional() else {
                 return nil
             }
+            
+            // Parse the response
+            return .init(wrapper: mediaWrapper)
         } catch let error {
             // Check if it's a IP-Address ban error
             if BaseErrorWrapper.isIPBanError(from: resultData) {
@@ -52,10 +55,6 @@ open class Endpoint: IEndpoint {
             // Otherwise throw the actual error
             throw error
         }
-        
-        
-        // Parse the response
-        return .init(wrapper: mediaWrapper)
     }
     
     open func getUser(withUsername username: String) async throws -> User? {

@@ -7,6 +7,6 @@
 
 import Foundation
 
-open enum SwiftygramError: Error {
+public enum SwiftygramError: Error {
     case ipBanError
 }
