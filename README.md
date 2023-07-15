@@ -22,7 +22,7 @@ pod 'Swiftygram'
 
 ## Author
 
-M-H-N, mhn.work@yahoo.com
+Mahmoud HodaeeNia, mhn.work@yahoo.com
 
 ## License
 

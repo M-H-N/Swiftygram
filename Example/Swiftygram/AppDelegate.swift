@@ -2,8 +2,8 @@
 //  AppDelegate.swift
 //  Swiftygram
 //
-//  Created by M-H-N on 07/09/2023.
-//  Copyright (c) 2023 M-H-N. All rights reserved.
+//  Created by Mahmoud HodaeeNia on 07/09/2023.
+//  Copyright (c) 2023 Mahmoud HodaeeNia. All rights reserved.
 //
 
 import UIKit

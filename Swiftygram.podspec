@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Swiftygram'
-  s.version          = '0.1.1'
+  s.version          = '0.1.2'
   s.summary          = 'Instagram unauthenticated API.'
 
 # This description is used to generate tags and improve search results.
@@ -24,7 +24,7 @@ TODO: Add long description of the pod here.
   s.homepage         = 'https://github.com/M-H-N/Swiftygram'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'M-H-N' => 'mhn.work@yahoo.com' }
+  s.author           = { 'Mahmoud HodaeeNia' => 'mhn.work@yahoo.com' }
   s.source           = { :git => 'https://github.com/M-H-N/Swiftygram.git', :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/MHN9978'
 

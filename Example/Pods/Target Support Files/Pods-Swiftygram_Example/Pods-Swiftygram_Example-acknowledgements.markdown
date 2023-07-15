@@ -3,7 +3,7 @@ This application makes use of the following third party libraries:
 
 ## Swiftygram
 
-Copyright (c) 2023 M-H-N <mhn.work@yahoo.com>
+Copyright (c) 2023 Mahmoud HodaeeNia <mhn.work@yahoo.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
