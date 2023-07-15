@@ -34,12 +34,23 @@ open class Endpoint: IEndpoint {
         
         // Call the network
         let result = try await self.sessionManager.getRequest(request)
+        let resultData: Data = result.data
         
         // Get the obj
-        let wrapper: Wrapper = try .decode(result.data)
-        guard let graphQlWrapper = wrapper["graphql"].optional(),
-              let mediaWrapper = graphQlWrapper["shortcode_media"].optional() else {
-            return nil
+        do {
+            let wrapper: Wrapper = try .decode(resultData)
+            guard let graphQlWrapper = wrapper["graphql"].optional(),
+                  let mediaWrapper = graphQlWrapper["shortcode_media"].optional() else {
+                return nil
+            }
+        } catch let error {
+            // Check if it's a IP-Address ban error
+            if BaseErrorWrapper.isIPBanError(from: resultData) {
+                throw SwiftygramError.ipBanError
+            }
+            
+            // Otherwise throw the actual error
+            throw error
         }
         
         
