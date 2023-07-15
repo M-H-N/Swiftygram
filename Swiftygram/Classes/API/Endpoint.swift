@@ -41,6 +41,12 @@ open class Endpoint: IEndpoint {
             let wrapper: Wrapper = try .decode(resultData)
             guard let graphQlWrapper = wrapper["graphql"].optional(),
                   let mediaWrapper = graphQlWrapper["shortcode_media"].optional() else {
+                
+                // If the result is IP-Address ban, throw the special exception (Error)
+                if BaseErrorWrapper.isIPBanError(from: resultData) {
+                    throw SwiftygramError.ipBanError
+                }
+                
                 return nil
             }
             
