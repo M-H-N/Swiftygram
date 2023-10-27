@@ -12,25 +12,25 @@ public protocol IMedia {
     
     var shortCode: String? { get }
     
-    var images: [IMediaContentVersion]? { get }
+    var images: [any IMediaContentVersion]? { get }
     
     var hasVideo: Bool { get }
     
-    var content: IMediaContent? { get }
+    var content: (any IMediaContent)? { get }
     
     var caption: IMediaCaption? { get }
 }
 
 
-public protocol IMediaContent {
+public protocol IMediaContent: Identifiable {
     var contentType: MediaContentType? { get }
-    var sideCarContents: [IMediaContent]? { get }
-    var videoVersions: [IMediaContentVersion]? { get }
-    var imageVersions: [IMediaContentVersion]? { get }
+    var sideCarContents: [any IMediaContent]? { get }
+    var videoVersions: [any IMediaContentVersion]? { get }
+    var imageVersions: [any IMediaContentVersion]? { get }
 }
 
 
-public protocol IMediaContentVersion {
+public protocol IMediaContentVersion: Identifiable {
     var url: URL? { get }
     var width: CGFloat? { get }
     var height: CGFloat? { get }

@@ -12,7 +12,7 @@ open class Media: WrappedBase, IMedia {
         self["id"].optional()?.string()
     }
     
-    open var images: [IMediaContentVersion]? {
+    open var images: [any IMediaContentVersion]? {
         self["display_resources"].optional()?.array()?.compactMap(Version.init)
     }
     
@@ -20,7 +20,7 @@ open class Media: WrappedBase, IMedia {
         self["is_video"].optional()?.bool() ?? false
     }
     
-    open var content: IMediaContent? {
+    open var content: (any IMediaContent)? {
         Media.Content(wrapper: self.wrapped)
     }
 
@@ -61,7 +61,7 @@ extension Media {
             }
         }
         
-        open var sideCarContents: [IMediaContent]? {
+        open var sideCarContents: [any IMediaContent]? {
             guard contentType == .sidecar else { return nil }
             return self["edge_sidecar_to_children"].optional()?["edges"].array()?.compactMap { edge in
                 guard let node = edge["node"].optional() else { return nil }
@@ -69,12 +69,12 @@ extension Media {
             }
         }
         
-        open var videoVersions: [IMediaContentVersion]? {
+        open var videoVersions: [any IMediaContentVersion]? {
             guard contentType == .video else { return nil }
             return [Version(wrapper: self.wrapped)]
         }
         
-        open var imageVersions: [IMediaContentVersion]? {
+        open var imageVersions: [any IMediaContentVersion]? {
             guard contentType == .image else { return nil }
             return self["display_resources"].optional()?.array()?.compactMap(Version.init)
         }

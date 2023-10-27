@@ -16,7 +16,7 @@ open class LoggedInMedia: WrappedBase, IMedia {
         self["code"].string()
     }
     
-    open var images: [IMediaContentVersion]? {
+    open var images: [any IMediaContentVersion]? {
         self["image_versions2"].optional()?["candidates"].array()?.compactMap(Version.init)
     }
     
@@ -24,7 +24,7 @@ open class LoggedInMedia: WrappedBase, IMedia {
         self["video_versions"].optional()?.array() != nil
     }
     
-    open var content: IMediaContent? {
+    open var content: (any IMediaContent)? {
         Content.init(wrapper: self.wrapped)
     }
     
@@ -48,15 +48,15 @@ extension LoggedInMedia {
             }
         }
         
-        public var sideCarContents: [IMediaContent]? {
+        public var sideCarContents: [any IMediaContent]? {
             self["carousel_media"].optional()?.array()?.compactMap(Content.init)
         }
         
-        public var videoVersions: [IMediaContentVersion]? {
+        public var videoVersions: [any IMediaContentVersion]? {
             self["video_versions"].optional()?.array()?.compactMap(Version.init)
         }
         
-        public var imageVersions: [IMediaContentVersion]? {
+        public var imageVersions: [any IMediaContentVersion]? {
             self["image_versions2"].optional()?["candidates"].array()?.compactMap(Version.init)
         }
     }
