@@ -12,7 +12,7 @@ import Swiftygram
 class ViewController: UIViewController {
     
     // MARK: Properties
-    private let endpoint: IEndpoint = Endpoint()
+    private var endpoint: IEndpoint = Endpoint()
 
     
     // MARK: IBOutlets
@@ -29,7 +29,15 @@ class ViewController: UIViewController {
 
 
     private func test() {
-        let url = URL(string: "https://www.instagram.com/reel/CufGrJzJiDk/?igshid=Y2IzZGU1MTFhOQ==")!
+        let url = URL(string: "https://www.instagram.com/reel/Cy4nOM_JMzW/?igshid=Y2IzZGU1MTFhOQ==")!
+
+        
+        
+        let requestGenerator: IRequestGenerator = RequestGenerator.init(httpHeaders: [:])   // You can add your headers here
+        
+        self.endpoint = Endpoint(
+            requestGenerator: requestGenerator
+        )
         
         let (shortCode, type) = ShareLinkUtility.shortCode(forUrl: url)!
         
@@ -46,8 +54,15 @@ class ViewController: UIViewController {
                 case .reel:
                     let media = try await self.endpoint.getPost(withShortCode: shortCode)
                     DispatchQueue.main.async { [weak self] in
+                        let identifier = media?.identifier
+                        let shortCode = media?.shortCode
+                        let images = media?.images
+                        let hasVideo = media?.hasVideo
+                        let content = media?.content
+                        let contentType = content?.contentType
+                        let caption = media?.caption
                         self?.lblTest.text = media?.caption?.text
-                        self?.lblTest.text?.append("\(media?.content?.images?.count)")
+                        self?.lblTest.text?.append("\(media?.content?.imageVersions?.count)")
                     }
                 }
                 

@@ -25,7 +25,7 @@ open class Endpoint: IEndpoint {
     }
     
     
-    open func getPost(withShortCode shortCode: String) async throws -> Media? {
+    open func getPost(withShortCode shortCode: String) async throws -> IMedia? {
         // Prepare the url
         let url = self.urlGenerator.postUrl(withShortCode: shortCode)
         
@@ -35,13 +35,19 @@ open class Endpoint: IEndpoint {
         // Call the network
         let result = try await self.sessionManager.getRequest(request)
         let resultData: Data = result.data
-        
+        let resultString: String = .init(data: resultData, encoding: .utf8)!
+        print(resultString)
         // Get the obj
         do {
             let wrapper: Wrapper = try .decode(resultData)
-            guard let graphQlWrapper = wrapper["graphql"].optional(),
-                  let mediaWrapper = graphQlWrapper["shortcode_media"].optional() else {
-                
+            
+            if let graphQlWrapper = wrapper["graphql"].optional(),
+               let mediaWrapper = graphQlWrapper["shortcode_media"].optional() {
+                return Media.init(wrapper: mediaWrapper)
+            } else if let itemsArray = wrapper["items"].optional()?.array(),
+                      let mediaWrapper = itemsArray.first {
+                return LoggedInMedia.init(wrapper: mediaWrapper)
+            } else {
                 // If the result is IP-Address ban, throw the special exception (Error)
                 if BaseErrorWrapper.isIPBanError(from: resultData) {
                     throw SwiftygramError.ipBanError
@@ -49,10 +55,8 @@ open class Endpoint: IEndpoint {
                 
                 return nil
             }
-            
-            // Parse the response if could pass the prev check :))
-            return .init(wrapper: mediaWrapper)
         } catch let error {
+            print(error.localizedDescription)
             // Check if it's a IP-Address ban error
             if BaseErrorWrapper.isIPBanError(from: resultData) {
                 throw SwiftygramError.ipBanError
