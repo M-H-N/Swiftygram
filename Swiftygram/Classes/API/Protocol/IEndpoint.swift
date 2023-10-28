@@ -8,7 +8,7 @@
 import Foundation
 
 public protocol IEndpoint {
-    func getPost(withShortCode shortCode: String) async throws -> IMedia?
+    func getPost(withShortCode shortCode: String) async throws -> MediaBase?
     
     func getUser(withUsername username: String) async throws -> User?
 }

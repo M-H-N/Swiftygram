@@ -37,7 +37,7 @@
 		D80111562A5B31750046C4C7 /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80111512A5B31750046C4C7 /* Media.swift */; };
 		D86C6CA72A62F4AE00CB9355 /* BaseErrorWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86C6CA62A62F4AE00CB9355 /* BaseErrorWrapper.swift */; };
 		D86C6CB22A62FB4300CB9355 /* SwiftygramError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86C6CB12A62FB4300CB9355 /* SwiftygramError.swift */; };
-		D87D2F012AEBE68D00E2925D /* IMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87D2F002AEBE68D00E2925D /* IMedia.swift */; };
+		D87D2F012AEBE68D00E2925D /* MediaBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87D2F002AEBE68D00E2925D /* MediaBase.swift */; };
 		D87D2F032AEBFB2F00E2925D /* LoggedInMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87D2F022AEBFB2F00E2925D /* LoggedInMedia.swift */; };
 /* End PBXBuildFile section */
 
@@ -111,7 +111,7 @@
 		D80111512A5B31750046C4C7 /* Media.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
 		D86C6CA62A62F4AE00CB9355 /* BaseErrorWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseErrorWrapper.swift; sourceTree = "<group>"; };
 		D86C6CB12A62FB4300CB9355 /* SwiftygramError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftygramError.swift; sourceTree = "<group>"; };
-		D87D2F002AEBE68D00E2925D /* IMedia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IMedia.swift; sourceTree = "<group>"; };
+		D87D2F002AEBE68D00E2925D /* MediaBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaBase.swift; sourceTree = "<group>"; };
 		D87D2F022AEBFB2F00E2925D /* LoggedInMedia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInMedia.swift; sourceTree = "<group>"; };
 		F3A2CC7DDE5309F1596A2EFB1AC89DC6 /* Swiftygram.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Swiftygram.debug.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -257,7 +257,7 @@
 				D80111502A5B31750046C4C7 /* User.swift */,
 				D801114F2A5B31750046C4C7 /* WrappedBase.swift */,
 				D86C6CA62A62F4AE00CB9355 /* BaseErrorWrapper.swift */,
-				D87D2F002AEBE68D00E2925D /* IMedia.swift */,
+				D87D2F002AEBE68D00E2925D /* MediaBase.swift */,
 				D87D2F022AEBFB2F00E2925D /* LoggedInMedia.swift */,
 			);
 			name = Model;
@@ -525,7 +525,7 @@
 				D86C6CA72A62F4AE00CB9355 /* BaseErrorWrapper.swift in Sources */,
 				D80111542A5B31750046C4C7 /* WrappedBase.swift in Sources */,
 				D80111252A5B309A0046C4C7 /* ShareLinkUtility.swift in Sources */,
-				D87D2F012AEBE68D00E2925D /* IMedia.swift in Sources */,
+				D87D2F012AEBE68D00E2925D /* MediaBase.swift in Sources */,
 				D80111412A5B31650046C4C7 /* Wrapped.swift in Sources */,
 				2288EBFA8067816892957E9463B934A2 /* Swiftygram-dummy.m in Sources */,
 				D80111392A5B31600046C4C7 /* URLGenerator.swift in Sources */,

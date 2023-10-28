@@ -7,28 +7,28 @@
 
 import Foundation
 
-open class LoggedInMedia: WrappedBase, IMedia {
-    open var identifier: String? {
+open class LoggedInMedia: MediaBase {
+    open override var identifier: String? {
         self["id"].string()
     }
     
-    open var shortCode: String? {
+    open override var shortCode: String? {
         self["code"].string()
     }
     
-    open var images: [any IMediaContentVersion]? {
+    open override var images: [MediaBase.VersionBase]? {
         self["image_versions2"].optional()?["candidates"].array()?.compactMap(Version.init)
     }
     
-    open var hasVideo: Bool {
+    open override var hasVideo: Bool {
         self["video_versions"].optional()?.array() != nil
     }
     
-    open var content: (any IMediaContent)? {
+    open override var content: MediaBase.ContentBase? {
         Content.init(wrapper: self.wrapped)
     }
     
-    open var caption: IMediaCaption? {
+    open override var caption: MediaBase.CaptionBase? {
         guard let wrapped = self["caption"].optional() else { return nil }
         return Caption(wrapper: wrapped)
     }
@@ -37,8 +37,8 @@ open class LoggedInMedia: WrappedBase, IMedia {
 
 
 extension LoggedInMedia {
-    open class Content: WrappedBase, IMediaContent {
-        public var contentType: MediaContentType? {
+    open class Content: MediaBase.ContentBase {
+        open override var contentType: MediaBase.ContentBase.ContentType? {
             if self.sideCarContents != nil {
                 return .sidecar
             } else if self.videoVersions != nil {
@@ -48,15 +48,15 @@ extension LoggedInMedia {
             }
         }
         
-        public var sideCarContents: [any IMediaContent]? {
+        open override var sideCarContents: [MediaBase.ContentBase]? {
             self["carousel_media"].optional()?.array()?.compactMap(Content.init)
         }
         
-        public var videoVersions: [any IMediaContentVersion]? {
+        open override var videoVersions: [MediaBase.VersionBase]? {
             self["video_versions"].optional()?.array()?.compactMap(Version.init)
         }
         
-        public var imageVersions: [any IMediaContentVersion]? {
+        open override var imageVersions: [MediaBase.VersionBase]? {
             self["image_versions2"].optional()?["candidates"].array()?.compactMap(Version.init)
         }
     }
@@ -65,30 +65,30 @@ extension LoggedInMedia {
 
 
 extension LoggedInMedia {
-    open class Version: WrappedBase, IMediaContentVersion {
-        open var url: URL? {
+    open class Version: MediaBase.VersionBase {
+        open override var url: URL? {
             self["url"].url()
         }
         
-        open var width: CGFloat? {
+        open override var width: CGFloat? {
             self["width"].double().flatMap(CGFloat.init)
         }
         
-        open var height: CGFloat? {
+        open override var height: CGFloat? {
             self["height"].double().flatMap(CGFloat.init)
         }
         
-        open var aspectRatio: CGFloat? {
+        open override var aspectRatio: CGFloat? {
             guard let width, let height else { return nil }
             return width / height
         }
         
-        open var resolution: CGFloat? {
+        open override var resolution: CGFloat? {
             guard let width, let height else { return nil }
             return width * height
         }
         
-        open var size: CGSize? {
+        open override var size: CGSize? {
             guard let width, let height else { return nil }
             return .init(width: width, height: height)
         }
@@ -98,13 +98,13 @@ extension LoggedInMedia {
 
 
 extension LoggedInMedia {
-    open class Caption: WrappedBase, IMediaCaption {
-        open var date: Date? {
+    open class Caption: MediaBase.CaptionBase {
+        open override var date: Date? {
             // format is like: 1688912369
             self["created_at"].optional()?.date()
         }
         
-        open var text: String? {
+        open override var text: String? {
             self["text"].optional()?.string()
         }
     }

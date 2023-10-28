@@ -25,7 +25,7 @@ open class Endpoint: IEndpoint {
     }
     
     
-    open func getPost(withShortCode shortCode: String) async throws -> IMedia? {
+    open func getPost(withShortCode shortCode: String) async throws -> MediaBase? {
         // Prepare the url
         let url = self.urlGenerator.postUrl(withShortCode: shortCode)
         
